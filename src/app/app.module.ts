@@ -1,6 +1,19 @@
+import { environment } from './../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+
+
+
+
+//angular fire 
+
+import { AngularFireModule } from '@angular/fire'
+import { AngularFireAuthModule} from '@angular/fire/auth'
+
+
+
+///////////////////
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './auth/login/login.component';
@@ -12,6 +25,8 @@ import { DetalleComponent } from './ingreso-egreso/detalle/detalle.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { SidebarComponent } from './shared/sidebar/sidebar.component';
+
+import { FormsModule} from '@angular/forms'
 
 @NgModule({
   declarations: [
@@ -28,7 +43,11 @@ import { SidebarComponent } from './shared/sidebar/sidebar.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireAuthModule
+    
   ],
   providers: [],
   bootstrap: [AppComponent]
