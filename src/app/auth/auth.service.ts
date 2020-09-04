@@ -1,5 +1,7 @@
+import { User } from './user.model';
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth/';
+import { AngularFirestore} from '@angular/fire/firestore'
 import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 import * as firebase from 'firebase';
@@ -11,11 +13,11 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private afAuth: AngularFireAuth, private router: Router) {}
+  constructor(private afAuth: AngularFireAuth, private router: Router , private afDB:AngularFirestore) {}
 
   initAuthListerer(): void {
     this.afAuth.authState.subscribe((fbUser: firebase.User) => {
-      console.log(fbUser);
+      
     });
   }
 
@@ -23,11 +25,14 @@ export class AuthService {
     this.afAuth
       .createUserWithEmailAndPassword(email, password)
       .then((resp) => {
-        console.log(resp);
-        this.router.navigate(['/']);
+        
+        
+        const user = new User(nombre,resp.user.email,resp.user.uid)
+        
+        this.createUserDB(user)
       })
       .catch((error: firebase.FirebaseError) => {
-        Swal.fire('Error registro', error.code, 'error');
+        Swal.fire('Error registro', error.message, 'error');
       });
   }
 
@@ -61,5 +66,18 @@ export class AuthService {
         return fbUser != null
       })
       );
+  }
+
+  createUserDB(user:User):void{
+    
+    
+    this.afDB.doc(`${user.getUID()}/usuario`)
+      .set(user.getUserObjectJS())
+      .then( ()=> {
+        this.router.navigate(['/']);
+      })
+      .catch(err => {
+        console.log(err)
+      })
   }
 }
