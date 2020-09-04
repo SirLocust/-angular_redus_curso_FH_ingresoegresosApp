@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth  } from '@angular/fire/auth/';
 import { Router } from '@angular/router';
 
+import * as firebase from 'firebase'
+
 import Swal from 'sweetalert2'
 
 @Injectable({
@@ -12,8 +14,8 @@ export class AuthService {
 
 
 initAuthListerer(): void{
-
-  this.afAuth.authState.subscribe( fbUser => {
+  
+  this.afAuth.authState.subscribe( (fbUser: firebase.User) => {
     console.log(fbUser)
   })
 }
@@ -25,7 +27,7 @@ initAuthListerer(): void{
         console.log(resp);
         this.router.navigate(['/']);
       })
-      .catch((error) => {
+      .catch((error:firebase.FirebaseError) => {
         Swal.fire('Error registro', error.code,'error')
       });
   }
@@ -36,7 +38,7 @@ initAuthListerer(): void{
       .then((resp) => {
         this.router.navigate(['/']);
       })
-      .catch((err) => {
+      .catch((err:firebase.FirebaseError) => {
         
         Swal.fire('Error Login',err.code,'error')
       });
