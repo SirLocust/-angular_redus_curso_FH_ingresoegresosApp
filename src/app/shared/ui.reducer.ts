@@ -7,20 +7,20 @@ export interface State{
 
 
 const initState: State = {
-    isLoading: false;
+    isLoading: false
 }
 
 
-export  const uiReducer = (state = initState, action : fromUi.accionesLoading): State =>{
+export  function uiReducer  (state = initState, action : fromUi.accionesLoading): State {
 
     switch (action.type) {
         case fromUi.ACTIVAR_LOADING:
             return {
                 isLoading: true
             }
-        case fromUi.ACTIVAR_LOADING:
+        case fromUi.DESACTIVAR_LOADING:
             return {
-                isLoading: false 
+                isLoading: false
             }
     
         default:

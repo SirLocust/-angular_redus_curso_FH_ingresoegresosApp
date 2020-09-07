@@ -1,3 +1,4 @@
+import { appReducers } from './app.reducer';
 import { environment } from './../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserModule } from '@angular/platform-browser';
@@ -11,6 +12,15 @@ import { NgModule } from '@angular/core';
 import { AngularFireModule } from '@angular/fire'
 import { AngularFireAuthModule} from '@angular/fire/auth'
 
+// ngxr
+import {StoreModule} from '@ngrx/store'
+import { StoreDevtoolsModule} from '@ngrx/store-devtools'
+// 
+
+
+// reducers
+
+import { uiReducer} from '../app/shared/ui.reducer'
 
 
 ///////////////////
@@ -48,10 +58,16 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
     FormsModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
-    AngularFirestoreModule
-    
+    AngularFirestoreModule,
+    StoreModule.forRoot(appReducers),
+    StoreDevtoolsModule.instrument({
+      maxAge:25,
+      logOnly: environment.production
+    })
   ],
-  providers: [],
+  providers: [
+
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
