@@ -1,4 +1,3 @@
-import { strict } from 'assert';
 
 export class User {
   private nombre: string;
@@ -34,5 +33,16 @@ export class User {
   public getUserObjectJS():User{
     return JSON.parse(JSON.stringify(this))
   }
+
+  public static creteUserOb(usuarioObj:DataObjec):User{
+    return new User(usuarioObj.nombre,usuarioObj.email,usuarioObj.uid)
+  }
+
+}
+
+export interface DataObjec{
+  nombre:string,
+  uid:string,
+  email:string
 
 }

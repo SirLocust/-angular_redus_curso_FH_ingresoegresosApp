@@ -1,9 +1,10 @@
+import { SetUSerAction } from './auth.actions';
 import { AppState } from './../app.reducer';
 import {
   ActivarLoadingAction,
   DesactivarLoadingAction,
 } from './../shared/ui.accions';
-import { User } from './user.model';
+import { User, DataObjec } from './user.model';
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth/';
 import { AngularFirestore } from '@angular/fire/firestore';
@@ -24,11 +25,25 @@ export class AuthService {
     private router: Router,
     private afDB: AngularFirestore,
     private store: Store<AppState>
-  ) {}
+  ) {
+
+  }
 
   initAuthListerer(): void {
-    this.afAuth.authState.subscribe((fbUser: firebase.User) => {});
+    this.afAuth.authState.subscribe((fbUser: firebase.User) => {
+      if(fbUser){
+        this.afDB.doc(`${fbUser.uid}/usuario`).valueChanges()
+          .subscribe( (usuarioObj:DataObjec)=> {
+
+            const newUser = User.creteUserOb(usuarioObj)
+            this.store.dispatch( new SetUSerAction(newUser))
+          })
+      }
+
+    });
   }
+
+
 
   crearUsuario(nombre: string, email: string, password: string): void {
     this.dispatchLoading(true)
@@ -96,6 +111,8 @@ export class AuthService {
         console.log(err);
       });
   }
+
+
 
   dispatchLoading(estado: boolean):void{
     if(estado){
