@@ -15,13 +15,27 @@
               </thead>
 
               <tbody>
-                <tr>
-                  <td>Descripción</td>
-                  <td>Monto</td>
-                  <td>Tipo</td>
-                  <td>acciones</td>
+                <tr *ngFor="let ingresoEgreso of ingresosEgrososItems" >
+                  <td>{{ingresoEgreso.description }}</td>
+                  <td> {{ingresoEgreso.monto | currency }} </td>
+
+                  <td> 
+                    <span [ngClass]="ingresoEgreso.tipo === 'ingreso'?'text-success':'text-danger' ">
+
+                      {{ ingresoEgreso.tipo}}
+                    </span>
+                  </td>
+
+                  <td>
+                    <button type="button" (click)="borrarTtem(ingresoEgreso.uid)" class="btn btn-outline-danger">
+                      <i class="fas fa-trash    "></i>
+                      borrar
+                    </button>
+                  </td>
                 </tr>
+                
               </tbody>
+              
 
             </table>
 
