@@ -36,7 +36,7 @@ import { FooterComponent } from './shared/footer/footer.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { SidebarComponent } from './shared/sidebar/sidebar.component';
 
-import { FormsModule} from '@angular/forms'
+import { FormsModule ,ReactiveFormsModule} from '@angular/forms'
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 
 @NgModule({
@@ -59,6 +59,7 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
     AngularFirestoreModule,
+    ReactiveFormsModule,
     StoreModule.forRoot(appReducers),
     StoreDevtoolsModule.instrument({
       maxAge:25,
