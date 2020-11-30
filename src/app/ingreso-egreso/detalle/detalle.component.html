@@ -1,47 +1,54 @@
 <div class="row">
-    <div class="col-12">
-        <div class="card">
-          <div class="card-body">
-            <h4 class="card-title">Detalle de ingreso egreso</h4>
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Detalle de ingreso egreso</h4>
 
-            <table class="table">
-              <thead>
-                <tr>
-                  <th>Descripción</th>
-                  <th>Monto</th>
-                  <th>Tipo</th>
-                  <th></th>
-                </tr>
-              </thead>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Descripción</th>
+              <th>Monto</th>
+              <th>Tipo</th>
+              <th></th>
+            </tr>
+          </thead>
 
-              <tbody>
-                <tr *ngFor="let ingresoEgreso of ingresosEgrososItems" >
-                  <td>{{ingresoEgreso.description }}</td>
-                  <td> {{ingresoEgreso.monto | currency }} </td>
+          <tbody>
+            <tr
+              *ngFor="
+                let ingresoEgreso of ingresosEgrososItems | ordenIngresoEgreso
+              "
+            >
+              <td>{{ ingresoEgreso.description }}</td>
+              <td>{{ ingresoEgreso.monto | currency }}</td>
 
-                  <td> 
-                    <span [ngClass]="ingresoEgreso.tipo === 'ingreso'?'text-success':'text-danger' ">
+              <td>
+                <span
+                  [ngClass]="
+                    ingresoEgreso.tipo === 'ingreso'
+                      ? 'text-success'
+                      : 'text-danger'
+                  "
+                >
+                  {{ ingresoEgreso.tipo | uppercase }}
+                </span>
+              </td>
 
-                      {{ ingresoEgreso.tipo | uppercase}}
-                    </span>
-                  </td>
-
-                  <td>
-                    <button type="button" (click)="borrarTtem(ingresoEgreso.uid)" class="btn btn-outline-danger">
-                      <i class="fas fa-trash    "></i>
-                      borrar
-                    </button>
-                  </td>
-                </tr>
-                
-              </tbody>
-              
-
-            </table>
-
-
-          </div>
-        </div>
+              <td>
+                <button
+                  type="button"
+                  (click)="borrarTtem(ingresoEgreso)"
+                  class="btn btn-outline-danger"
+                >
+                  <i class="fas fa-trash"></i>
+                  borrar
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
+  </div>
 </div>
-  

@@ -62,4 +62,10 @@ export class IngresoEgresoService {
     this.ingreosEgresoListenerSub.unsubscribe();
     this.ingresoEgresoItemsSub.unsubscribe();
   }
+
+  borrarIngresoEgreso(uid: string ): Promise<void> {
+    return this.afDB.doc(`${this.authService.getUsuario().getUID()}/ingresos-egresos/items/${uid}`).delete();
+  }
+
+
 }

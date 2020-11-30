@@ -38,6 +38,7 @@ import { SidebarComponent } from './shared/sidebar/sidebar.component';
 
 import { FormsModule ,ReactiveFormsModule} from '@angular/forms'
 import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { OrdenIngresoEgresoPipe } from './ingreso-egreso/orden-ingreso-egreso.pipe';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
     DetalleComponent,
     FooterComponent,
     NavbarComponent,
-    SidebarComponent
+    SidebarComponent,
+    OrdenIngresoEgresoPipe
   ],
   imports: [
     BrowserModule,
