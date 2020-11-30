@@ -21,7 +21,7 @@ import { Store } from '@ngrx/store';
 })
 export class AuthService {
   private userSubscription: Subscription = new Subscription();
-  private usuario:User
+  private usuario: User;
   constructor(
     private afAuth: AngularFireAuth,
     private router: Router,
@@ -34,9 +34,10 @@ export class AuthService {
       if (fbUser) {
         this.userSubscription = this.getUserDB(fbUser).subscribe(
           (usuarioObj: DataObjec) => {
+            console.log(usuarioObj)
             const newUser = User.creteUserOb(usuarioObj);
             this.store.dispatch( new SetUSerAction(newUser))
-            this.usuario = newUser
+            this.usuario = newUser;
           }
         );
         return;
@@ -112,8 +113,8 @@ export class AuthService {
       });
   }
 
-  getUserDB(fbUser) {
-    return this.afDB.doc(`${fbUser.uid}/usuario`).valueChanges();
+  getUserDB(fbUser): Observable<DataObjec> {
+    return this.afDB.doc<DataObjec>(`${fbUser.uid}/usuario`).valueChanges();
   }
 
   dispatchLoading(estado: boolean): void {
@@ -126,7 +127,7 @@ export class AuthService {
     }
   }
 
-  getUsuario():User{
-    return this.usuario
+  getUsuario(): User{
+    return this.usuario;
   }
 }

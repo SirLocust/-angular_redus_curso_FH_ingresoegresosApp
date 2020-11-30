@@ -3,6 +3,10 @@ export class User {
    email: string;
    uid: string;
 
+   public static creteUserOb(usuarioObj: DataObjec): User {
+    return new User(usuarioObj.nombre, usuarioObj.email, usuarioObj.uid);
+  }
+
   /**
    *
    * @param nombre
@@ -30,9 +34,7 @@ export class User {
     return JSON.parse(JSON.stringify(this));
   }
 
-  public static creteUserOb(usuarioObj: DataObjec): User {
-    return new User(usuarioObj.nombre, usuarioObj.email, usuarioObj.uid);
-  }
+ 
 }
 
 export interface DataObjec {

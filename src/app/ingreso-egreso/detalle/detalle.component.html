@@ -22,7 +22,7 @@
                   <td> 
                     <span [ngClass]="ingresoEgreso.tipo === 'ingreso'?'text-success':'text-danger' ">
 
-                      {{ ingresoEgreso.tipo}}
+                      {{ ingresoEgreso.tipo | uppercase}}
                     </span>
                   </td>
 
