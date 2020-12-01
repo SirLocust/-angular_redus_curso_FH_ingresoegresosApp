@@ -1,4 +1,4 @@
-import { SetUSerAction } from './auth.actions';
+import { SetUSerAction, UnsetUserAction } from './auth.actions';
 import { AppState } from './../app.reducer';
 import {
   ActivarLoadingAction,
@@ -34,15 +34,15 @@ export class AuthService {
       if (fbUser) {
         this.userSubscription = this.getUserDB(fbUser).subscribe(
           (usuarioObj: DataObjec) => {
-            console.log(usuarioObj)
+            console.log(usuarioObj);
             const newUser = User.creteUserOb(usuarioObj);
-            this.store.dispatch( new SetUSerAction(newUser))
+            this.store.dispatch(new SetUSerAction(newUser));
             this.usuario = newUser;
           }
         );
         return;
       }
-      this.usuario  = null;
+      this.usuario = null;
       this.userSubscription.unsubscribe();
     });
   }
@@ -89,7 +89,10 @@ export class AuthService {
       .catch((err) => {
         console.error(err);
       });
+    const disconect = new UnsetUserAction();
+    this.store.dispatch(disconect);
   }
+
   isAuth(): Observable<boolean> {
     return this.afAuth.authState.pipe(
       map((fbUser) => {
@@ -127,7 +130,7 @@ export class AuthService {
     }
   }
 
-  getUsuario(): User{
+  getUsuario(): User {
     return this.usuario;
   }
 }

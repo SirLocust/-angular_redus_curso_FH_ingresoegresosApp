@@ -19,6 +19,10 @@ export function authReducer(
       return {
         user: SetUser(action.getUser()),
       };
+    case fromAuth.UNSET_USER:
+      return{
+        user: null
+      };
 
     default:
       return state;
